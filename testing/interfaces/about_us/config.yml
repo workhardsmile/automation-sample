@@ -1,0 +1,26 @@
+# encoding: UTF-8
+TargetService: 
+plan_name: ''
+owner: gang.wu@istuary.com
+status: Work In Progress
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/settings/about_us
+unsign_test:
+  - request:
+    expected:
+      code: 1
+      include_content: '物联网安全'
+      message: ''
+signin_test:
+  - request:
+    expected:
+      code: 1
+      include_content: '物联网安全'
+      message: ''
+
+            
