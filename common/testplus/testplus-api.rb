@@ -19,6 +19,7 @@ module TESTPLUS
 
   def self.post_case_result(case_result)
     # just forward to webserver in order to calculate the results
+    # case_result["screen_shot"] = '20160824-15-28-17-804005000.png' if case_result["status"]=='failed'
     data = {
       :protocol => {
         :what => 'Case',
@@ -34,10 +35,15 @@ module TESTPLUS
       }
     }
     Common.logger_info "update case result: #{data}"
-    begin
-      RestClient.post "#{$testplus_config["web_server"]}/status/update", data
+    RestClient.post "#{$testplus_config["web_server"]}/status/update", data rescue false
+    begin  
+      case_result["screen_shot"].split(";").each do |screen_file|
+        if "#{screen_file}".strip != ""
+          RestClient.post "#{$testplus_config["web_server"]}/screen_shots",{"screen_shot"=> File.new(File.join(SCREEN_SHORT_FOLDER,screen_file))}
+        end
+      end
     rescue => e
-      Common.logger_error "post case result to web server failed: #{e}"
+      Common.logger_error "post screen_shots #{case_result["screen_shot"]} to web server failed: #{e}"
     end
   end
 
