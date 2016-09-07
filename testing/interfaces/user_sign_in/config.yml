@@ -1,0 +1,127 @@
+# encoding: UTF-8
+TargetService: 
+plan_name: 'Interfaces_sign_in'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/users/sign_in
+signin_test:
+  - request:
+      mobile: 15800000002
+      password: 123456
+    expected:
+      code: 1
+      message: ''
+    #正确登录
+  - request:
+      mobile: 15800000002
+      password: 1234567
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #密码错误登录   
+  - request:
+      mobile: 15800000002
+      password: 1234567
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #手机号错误登录
+  - request:
+      mobile: 1898070902
+      password: 1234567
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #手机号密码均错误登录
+  - request:
+      mobile: '测试'
+      password: 123456
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #手机号填写中文字符
+  - request:
+      mobile: test
+      password: 123456
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #手机号填写英文字符
+  - request:
+      mobile: '#￥%'
+      password: 123456
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #手机号填写特殊字符
+  - request:
+      mobile: '文海jkfd2388#￥%'
+      password: 123456
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #手机号填写混合字符
+  - request:
+      mobile: 189807090201
+      password: 123456
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #手机号超11位
+  - request:
+      mobile: 15800000002
+      password: fddsd
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #密码填写英文字符
+  - request:
+      mobile: 15800000002
+      password: '测试'
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #密码填写中文字符
+  - request:
+      mobile: 15800000002
+      password: '测试dfj$'
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #密码填写混合字符
+  - request:
+      mobile: 15800000002
+      password: '%￥#$#'
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #密码填写特殊字符
+  - request:
+      mobile: 15800000002
+      password: "asdqwe123!@#qweasd123"
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #密码填写超过18位
+  - request:
+      mobile: 15800000002
+      password: ''
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #密码填写为空
+  - request:
+      mobile: ''
+      password: 123456
+    expected:
+      code: 1001
+      message: "账号或密码错误"
+    #手机号填写为空
+    
+            

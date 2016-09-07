@@ -1,0 +1,66 @@
+# encoding: UTF-8
+TargetService: 
+plan_name: 'Interfaces_comment'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/articles/comment
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      article_id: '18'
+      content: 'test'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request:
+      article_id: '18'
+      content: 'test'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      article_id: '18'
+      content: 'testtest'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      article_id: '18'
+      content: '回复'
+      comment_id: '41'
+    expected:
+      code: 1
+      message: ''
+      uid: 35
+  - request:
+      article_id: '18'
+      content: 'test'
+      comment_id: '9'
+    expected:
+      code: 1001
+      message: '评论错误'
+  - request:
+      article_id: '18'
+      content: 'test'
+      comment_id: '99999'
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+  - request:
+      article_id: '18'
+      content: 'test'
+      comment_id: '22'
+    expected:
+      code: 1001
+      message: '评论不能@自己'
+
+            
