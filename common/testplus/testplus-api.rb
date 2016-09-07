@@ -39,7 +39,8 @@ module TESTPLUS
     begin  
       case_result["screen_shot"].split(";").each do |screen_file|
         if "#{screen_file}".strip != ""
-          RestClient.post "#{$testplus_config["web_server"]}/screen_shots",{"screen_shot"=> File.new(File.join(SCREEN_SHORT_FOLDER,screen_file))}
+          RestClient.post "#{$testplus_config["web_server"]}/screen_shots",{"screen_shot"=> File.new(File.join(SCREEN_SHORT_FOLDER,screen_file),'rb')}
+          FileUtils.remove_file File.join(SCREEN_SHORT_FOLDER,screen_file),true
         end
       end
     rescue => e
