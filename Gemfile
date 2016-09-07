@@ -1,15 +1,18 @@
 # Gemfile
-source "https://rubygems.org"
+#source "https://rubygems.org"
+source 'https://ruby.taobao.org'
 
 gem "rspec"
 gem "digest"
-gem "mysql2"
+gem "mysql2",'~>0.3.21'
 gem "redis"
 gem "uuidtools"
 gem "parallel_tests"
 gem "rspec-parallel"
 gem "coderay"
 gem "addressable"
-#gem 'selenium-webdriver', '2.53.0'
+gem 'selenium-webdriver', '2.53.0'
 gem "rest-client", "~> 1.6.7"
 gem 'pry', '~>0.10.3'
+gem 'activerecord', '3.2.6',:require => 'active_record'
+gem 'daemons'
