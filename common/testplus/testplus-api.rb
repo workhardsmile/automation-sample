@@ -19,7 +19,7 @@ module TESTPLUS
 
   def self.post_case_result(case_result)
     # just forward to webserver in order to calculate the results
-    # case_result["screen_shot"] = '20160824-15-28-17-804005000.png' if case_result["status"]=='failed'
+    #case_result["screen_shot"] = '20160824-15-28-17-804005000.png' if case_result["status"]=='failed'
     data = {
       :protocol => {
         :what => 'Case',
@@ -72,10 +72,6 @@ module TESTPLUS
     Common.logger_info "update script status: #{data}"
     (RestClient.post "#{$testplus_config["web_server"]}/status/update", data) rescue false
     (RestClient.post "#{$testplus_config["web_logserver"]}/logs", JSON.parse($logjson)) rescue false
-    test_round = TestRound.find_all_by_id(script_result["round_id"])[0]
-    if test_round.all_automation_script_results_finished?
-      test_round.update_on_finish
-    end 
     begin
       RestClient.post "#{$testplus_config["web_logserver"]}/upload", {"test_log" => File.new(File.join(LOG_FOLDER, $logfile),'rb')}
     rescue => e
