@@ -1,5 +1,5 @@
 def action1
-  $browser = :chrome
+  $platform = :chrome
   # describe "This is Demo Script" do
   before(:all) do
     puts "before(:all)"

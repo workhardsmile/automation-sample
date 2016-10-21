@@ -1,0 +1,48 @@
+# encoding: UTF-8
+# implement interface test script admin-features-destroy
+TargetService: 
+plan_name: 'Interfaces_admin-features-destroy'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-14
+version: 1
+last_modified_dt: 2016-10-14
+timeout: 1200
+actions: action_1
+
+api_path: /api/admin/features/destroy
+user:
+  user_name: 'smart'
+  password: '123456'
+precodition:
+  api_path: /api/admin/features/create
+  request: 
+      title: '专题20161017'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+unsign_test:
+  - request: 
+      feature_id: '1'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request: 
+      feature_id: '0'
+    expected:
+      code: 1
+      message: ''
+  - request: 
+      feature_id: '-1'
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+  - request: 
+      feature_id: 
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'    
+              

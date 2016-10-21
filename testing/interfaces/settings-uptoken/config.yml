@@ -1,0 +1,29 @@
+# encoding: UTF-8
+# implement interface test script users-comments
+TargetService: 
+plan_name: 'Interfaces_settings-uptoken'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+#生成七牛上传token
+api_path: /api/mobile/v1/settings/uptoken
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request: {}
+    expected:
+      code: 1
+      message: ''
+signin_test: 
+  - request: {}
+    expected:
+      code: 1
+      message: ''
+
+            

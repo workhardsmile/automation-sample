@@ -1,0 +1,43 @@
+# encoding: UTF-8
+TargetService: 
+plan_name: 'Interfaces_articles-dialogues'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/articles/dialogues
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      comment_id: '64'
+      page: '1'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      comment_id: '-1'
+      page: '1'
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+signin_test: 
+  - request:
+      comment_id: '64'
+      page: '1'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      comment_id: '-1'
+      page: '1'
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+
+            

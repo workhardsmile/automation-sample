@@ -1,0 +1,39 @@
+# encoding: UTF-8
+# implement interface test script web-articles-destroy
+TargetService: 
+plan_name: 'Interfaces_web-articles-destroy'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-10
+version: 1
+last_modified_dt: 2016-10-10
+timeout: 1200
+actions: action_1
+
+api_path: /api/website/articles/destroy
+user:
+  mobile: '15800000002'
+  password: '123456'
+unsign_test:
+  - request:
+      post_id: '68'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test:
+  - request:
+      post_id: '70'
+    expected:
+      code: 1001
+      message: '您没有权限进行此操作'
+  - request:
+      post_id: ''
+    precondition:
+      api_path: /api/website/articles/create
+      request:
+        post_title: '测试发表文章2016101001'
+        post_content: '这里是文章内容'
+        topics: 'test;测试'
+    expected:
+      code: 1
+      message: '删除成功'         

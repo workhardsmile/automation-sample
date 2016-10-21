@@ -1,0 +1,267 @@
+# encoding: UTF-8
+# implement interface test script users-sign_up
+TargetService: 
+plan_name: 'Interfaces_users-sign_up'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/users/sign_up
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      user_name: '用户1O'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: '错误验证码测试'
+      password: '123456'
+      mobile: '1'
+      code: '1234'
+    expected:
+      code: 1001
+      message: '验证码错误'
+  - request:
+      user_name: '验证码过期测试1'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      is_expire: true
+      code: 1001
+      message: '验证码错误'
+  - request:
+      user_name: '超过十位昵称注册个事情啊你说说啊'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的用户名'
+  - request:
+      user_name: '一'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的用户名'
+  - request:
+      user_name: '用户1O'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1001
+      message: '此昵称已使用，请更换'
+  - request:
+      user_name: '少于6位密码'
+      password: '12345'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1001
+      message: '密码格式不正确'
+  - request:
+      user_name: '超过18位密码'
+      password: '1234567890123456789'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1001
+      message: '密码格式不正确'
+  - request:
+      user_name: '少于4位数验证码'
+      password: '123456'
+      mobile: '1'
+      code: '123'
+    expected:
+      code: 1001
+      message: '验证码错误'
+  - request:
+      user_name: '超过6位数验证码'
+      password: '123456'
+      mobile: '1'
+      code: '1234567'
+    expected:
+      code: 1001
+      message: '验证码错误'
+  - request:
+      user_name: '已注册手机号'
+      password: '123456'
+      mobile: '18980709020'
+      code: '1234'
+    expected:
+      code: 1001
+      message: '此手机号已注册'
+  - request:
+      user_name: '少于11位手机号'
+      password: '123456'
+      mobile: '1898070902'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      user_name: '超过11位手机号'
+      password: '123456'
+      mobile: '189807090201'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      user_name: '中文手机号测试'
+      password: '123456'
+      mobile: '中文字符'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      user_name: '英文手机号测试'
+      password: '123456'
+      mobile: 'abcdefg'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      user_name: '特殊字符手机号测试'
+      password: '123456'
+      mobile: '&……%%%#$$%%'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      user_name: '混合手机号测试'
+      password: '123456'
+      mobile: 'ab中文c$%^%%$'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      user_name: '测试用户全中文'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: 'testfrank'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: '半角!@#%%'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: '2131313112'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: '中文密码测试'
+      password: '中文密码测试'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1001
+      message: '密码格式不正确'
+  - request:
+      user_name: '英文密码测试'
+      password: 'qweasdzxc'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: '数字密码测试'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: '全角字符密码测试'
+      password: '！*@#O(∩_∩)O~'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1001
+      message: '密码格式不正确'
+  - request:
+      user_name: '半角字符密码测试'
+      password: '!@#%$^^%'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: '混和密码测试'
+      password: 'test@#$123'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1
+      message: '注册成功'
+  - request:
+      user_name: '中文字符验证码'
+      password: '123456'
+      mobile: '1'
+      code: '中文'
+    expected:
+      code: 1001
+      message: '验证码错误'
+  - request:
+      user_name: '英文字符验证码'
+      password: '123456'
+      mobile: '1'
+      code: 'asda'
+    expected:
+      code: 1001
+      message: '验证码错误'
+  - request:
+      user_name: '特殊字符验证码'
+      password: '123456'
+      mobile: '1'
+      code: '@#$%'
+    expected:
+      code: 1001
+      message: '验证码错误'
+  - request:
+      user_name: '全角！O(∩_∩)O~'
+      password: '123456'
+      mobile: '1'
+      code: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的用户名'
+                

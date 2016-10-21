@@ -1,0 +1,35 @@
+# encoding: UTF-8
+# implement interface test script articles-show
+TargetService: 
+plan_name: 'Interfaces_articles-show'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+#获取文章详情
+api_path: /api/mobile/v1/articles/show
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      article_id: '18'
+    expected:
+      code: 1
+      message: ''
+signin_test: 
+  - request:
+      article_id: '18'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      article_id: '-1'
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+            

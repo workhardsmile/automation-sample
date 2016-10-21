@@ -1,0 +1,23 @@
+# encoding: UTF-8
+# implement interface test script mobile-web-topics-show
+TargetService: 
+plan_name: 'Interfaces_mobile-web-topics-show'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/h5/topics/show
+user:
+  mobile: '15800000002'
+  password: '123456'
+unsign_test:
+  - request:
+      topic_id: '1'
+    expected:
+      code: 1
+      message: ''
+             

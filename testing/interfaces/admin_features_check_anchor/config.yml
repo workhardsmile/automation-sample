@@ -1,0 +1,55 @@
+# encoding: UTF-8
+# implement interface test script admin-features-check_anchor
+TargetService: 
+plan_name: 'Interfaces_admin-features-check_anchor'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-14
+version: 1
+last_modified_dt: 2016-10-14
+timeout: 1200
+actions: action_1
+
+api_path: /api/admin/features/check_anchor
+user:
+  user_name: 'smart'
+  password: '123456'
+precodition:
+  - api_path: /api/admin/features/create
+    request: 
+      title: '专题16101805'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+  - api_path: /api/admin/features/create_anchor
+    request: 
+      feature_id: ''
+      name: '锚点分组1'
+unsign_test:
+  - request: 
+      feature_id: '1'
+      name: 'test'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request: 
+      feature_id: '-1'
+      name: 'test'
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+  - request: 
+      feature_id: '0'
+      name: '0'
+    expected:
+      code: 1001
+      message: '锚点已存在'
+  - request: 
+      feature_id: '0'
+      name: 'test12345'
+    expected:
+      code: 1
+      message: ''          

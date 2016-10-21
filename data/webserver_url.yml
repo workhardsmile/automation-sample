@@ -1,2 +1,11 @@
 QA:
   Host: "http://192.168.28.218"
+  OP-Center: "http://192.168.28.218:9074"
+  MobileWeb: "http://192.168.28.218:9073"
+  PC-Web: "http://192.168.28.218:9075"
+STAG:
+  # 112.126.93.120
+  Host: "http://wulianaq.com"
+  OP-Center: "http://console.wulianaq.com"
+  MobileWeb: "http://m.wulianaq.com"
+  PC-Web: "http://wulianaq.com"

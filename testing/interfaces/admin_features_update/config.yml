@@ -1,0 +1,181 @@
+# encoding: UTF-8
+# implement interface test script admin-features-update
+TargetService: 
+plan_name: 'Interfaces_admin-features-update'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-14
+version: 1
+last_modified_dt: 2016-10-14
+timeout: 1200
+actions: action_1
+
+api_path: /api/admin/features/update
+user:
+  user_name: 'smart'
+  password: '123456'
+precodition:
+  api_path: /api/admin/features/create
+  request: 
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+unsign_test:
+  - request: 
+      feature_id: '1'
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request: 
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+  - request: 
+      feature_id: '0'
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1
+      message: '修改成功'
+  - request: 
+      feature_id: '0'
+      title: '0'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '此专题已存在' 
+  - request: 
+      feature_id: '0'
+      title: ''
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '标题不能为空' 
+  - request: 
+      feature_id: '0'
+      title: '专题1234567890'
+      cover: ''
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '标题最多10个字, 封面不能为空' 
+  - request: 
+      feature_id: '0'
+      title: '专题16101702'
+      cover: ''
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '封面不能为空'   
+  - request: 
+      feature_id: '0'
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: ''
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '封面缩略图不能为空'  
+  - request: 
+      feature_id: '0'
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: ''
+      end_time: ''
+    expected:
+      code: 1001
+      message: '时间格式不正确'  
+  - request: 
+      feature_id: '0'
+      title: '专题1234567890'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '标题最多10个字' 
+  - request: 
+      feature_id: '0'
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: '12345678901234567890123456789012345'
+      start_time: '2016-10-17'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '描述最多30个字'
+  - request: 
+      feature_id: '0'
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: '2015-12-31'
+    expected:
+      code: 1001
+      message: '开始时间不能大于结束时间'
+  - request: 
+      feature_id: '0'
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016中文'
+      end_time: ''
+    expected:
+      code: 1001
+      message: '时间格式不正确'
+  - request: 
+      feature_id: '0'
+      title: '专题16101702'
+      cover: 'o_1at7r0po78vqf3312ci7v3uds2t.png'
+      cover_thumbnail: 'o_1at7r0diidvqnan1v6mkssin32o.png'
+      description: ''
+      start_time: '2016-10-17'
+      end_time: '2016￥%……&'
+    expected:
+      code: 1001
+      message: '时间格式不正确'
+            

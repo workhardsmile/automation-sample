@@ -1,0 +1,27 @@
+# encoding: UTF-8
+# implement interface test script web-articles-recent_list
+TargetService: 
+plan_name: 'Interfaces_web-articles-recent_list'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-10
+version: 1
+last_modified_dt: 2016-10-10
+timeout: 1200
+actions: action_1
+
+api_path: /api/website/articles/recent_list
+user:
+  mobile: '15800000002'
+  password: '123456'
+unsign_test:
+  - request: {}
+    expected:
+      code: 1
+      message: ''
+signin_test:
+  - request: {}
+    expected:
+      code: 1
+      message: ''
+              

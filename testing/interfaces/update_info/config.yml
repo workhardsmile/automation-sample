@@ -1,0 +1,96 @@
+# encoding: UTF-8
+# implement interface test script settings-update_info
+TargetService: 
+plan_name: 'Interfaces_settings-update_info'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/settings/update_info
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      avatar: 'Foaif-rR8s9q3LHYxMtHhZqmmrDg'
+      user_name: 'tester'
+      signature: '这只是一个简单的介绍而已'
+      gender: '1'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request:
+      avatar: 'Foaif-rR8s9q3LHYxMtHhZqmmrDg'
+      user_name: '1'
+      signature: '这只是一个简单的介绍而已-12345'
+      gender: '1'
+    expected:
+      code: 1
+      message: ''
+      signature: '这只是一个简单的介绍而已-12345'
+  - request:
+      avatar: 'Foaif-rR8s9q3LHYxMtHhZqmmrDg'
+      user_name: '1'
+      signature: '这只是一个简单的介绍而已-12345'
+      gender: '2'
+    expected:
+      code: 1
+      message: ''
+      gender: 2
+  - request:
+      avatar: 'Foaif-rR8s9q3LHYxMtHhZqmmrDg'
+      user_name: '1'
+      signature: '这只是一个简单的介绍而已-12345'
+      gender: '3'
+    expected:
+      code: 1001
+      message: '性别错误'
+  - request:
+      avatar: 'a8119c9d-5502-404f-b0e5-b44094bdef3d.png'
+      user_name: '1'
+      signature: '这只是一个简单的介绍而已'
+      gender: '1'
+    expected:
+      code: 1
+      message: ''
+      #avatar: 'http://o8eatr2zr.bkt.clouddn.com/a8119c9d-5502-404f-b0e5-b44094bdef3d.png?imageView2/1/w/100/h/100/interlace/1/q/100/format/png'
+      avatar: 'http://o8eatr2zr.bkt.clouddn.com/a8119c9d-5502-404f-b0e5-b44094bdef3d.png?imageView2/1/w/50/h/50/interlace/1/q/100/format/png'
+  - request:
+      avatar: 'Foaif-rR8s9q3LHYxMtHhZqmmrDg'
+      user_name: '1'
+      signature: '这只是一个简单的介绍而已-12345'
+      gender: '1'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      avatar: 'Foaif-rR8s9q3LHYxMtHhZqmmrDg'
+      user_name: '1'
+      signature: '这只是一个简单的介绍而已-12345'
+      gender: '1'
+    expected:
+      state: true
+      code: 1001
+      message: '用户名60天内只能修改一次'
+  - request:
+      avatar: 'Foaif-rR8s9q3LHYxMtHhZqmmrDg'
+      user_name: '我只是试一试超过十个字怎么处理'
+      signature: '这只是一个简单的介绍而已-12345'
+      gender: '1'
+    expected:
+      code: 1001
+      message: '请输入正确的用户名' 
+  - request:
+      avatar: 'Foaif-rR8s9q3LHYxMtHhZqmmrDg'
+      user_name: '-1'
+      signature: '这只是一个简单的介绍而已-12345'
+      gender: '1'
+    expected:
+      code: 1001
+      message: '此昵称已使用，请更换'
+            

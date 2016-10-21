@@ -1,0 +1,40 @@
+# encoding: UTF-8
+# implement interface test script settings-reset_password
+TargetService: 
+plan_name: 'Interfaces_settings-reset_password'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/settings/reset_password
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      mobile: '18980709020'
+      code: ''
+      password: '123456'
+    expected:
+      code: 1001
+      message: '验证码错误'
+signin_test: 
+  - request:
+      mobile: '18980709020'
+      code: '123456'
+      password: '123456'
+    expected:
+      code: 1001
+      message: '验证码错误'
+  - request:
+      mobile: '18980709020'
+      code: ''
+      password: '123456'
+    expected:
+      code: 1
+      message: '密码重置成功'
+            

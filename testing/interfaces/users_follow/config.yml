@@ -1,0 +1,35 @@
+# encoding: UTF-8
+# implement interface test script users-follow
+TargetService: 
+plan_name: 'Interfaces_users-follow'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+#关注
+api_path: /api/mobile/v1/users/follow
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      user_id: '22'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request:
+      user_id: '22'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      user_id: '23'
+    expected:
+      code: 1001
+      message: '关注自己失败'
+            

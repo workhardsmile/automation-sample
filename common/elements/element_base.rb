@@ -22,11 +22,11 @@ class ElementBase
 
   def exist?
     @@element = element
-    if @@element
-    @@element.displayed?
-    else
-    return false
-    end
+    # if @@element
+    # @@element.displayed?
+    # else
+    # return false
+    # end
   end
 
   def click(how=:normal)

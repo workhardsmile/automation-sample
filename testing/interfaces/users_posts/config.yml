@@ -1,0 +1,60 @@
+# encoding: UTF-8
+# implement interface test script users-posts
+TargetService: 
+plan_name: 'Interfaces_users-posts'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+#个人主页
+api_path: /api/mobile/v1/users/posts
+user:
+  mobile: '18980709020'
+  password: '123456'
+export_user:
+  mobile: '15800000003'
+  password: '123456'
+unsign_test:
+  - request:
+      user_id: '8'
+      page: '1'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      user_id: '73'
+      page: '1'
+    expected:
+      code: 1001
+      message: '用户非专家'
+signin_test: 
+  - request:
+      user_id: '8'
+      page: '1'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      user_id: '73'
+      page: '1'
+    expected:
+      code: 1001
+      message: '用户非专家'
+  - request:
+      user_id: '8'
+      page: '1'      
+    expected:
+      code: 1
+      message: ''
+  - request:
+      user_id: '73'
+      page: '1'      
+    expected:
+      is_export: true
+      code: 1001
+      message: '用户非专家'
+            

@@ -1,0 +1,41 @@
+# encoding: UTF-8
+# implement interface test script settings-disturb
+TargetService: 
+plan_name: 'Interfaces_settings-disturb'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+#免打扰
+api_path: /api/mobile/v1/settings/disturb
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      type: '1'
+    expected:
+      code: 401
+      message: '请重新登录'
+  - request:
+      type: '0'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request:
+      type: '1'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      type: '0'
+    expected:
+      code: 1
+      message: ''
+
+            

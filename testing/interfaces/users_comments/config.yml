@@ -1,0 +1,38 @@
+# encoding: UTF-8
+# implement interface test script users-comments
+TargetService: 
+plan_name: 'Interfaces_users-comments'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/users/comments
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      sort: '0'
+      page: '1'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request:
+      sort: '0'
+      page: '1'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      sort: '1'
+      page: '1'
+    expected:
+      code: 1
+      message: ''
+
+            

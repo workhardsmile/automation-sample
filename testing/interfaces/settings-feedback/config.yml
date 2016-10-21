@@ -1,0 +1,72 @@
+# encoding: UTF-8
+# implement interface test script settings-feedback
+TargetService: 
+plan_name: 'Interfaces_settings-feedback'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+#意见反馈
+api_path: /api/mobile/v1/settings/feedback
+user:
+  mobile: '18980709020'
+  password: '123456'
+device_info:
+  app_version: '1.0.0.10'
+  system_info: '5.1'
+  device_model: 'm2 note'
+  resolution: '1080 * 1920'
+  density: '3.0'
+  device_info: 'Android'
+unsign_test:
+  - request:
+      content: '这只是一个反馈内容测试'
+      phone: ''
+      attachements: ''
+    expected:
+      code: 1
+      message: '谢谢您的反馈'
+signin_test: 
+  - request:
+      content: '这只是一个反馈内容测试'
+      phone: ''
+      attachements: ''
+    expected:
+      code: 1
+      message: '谢谢您的反馈'
+  - request:
+      content: '这只是一'
+      phone: ''
+      attachements: ''
+    expected:
+      code: 1001
+      message: '内容不能少于5个字'
+  - request:
+      content: '这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试一二三这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试一二三这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试一二三这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试一二三这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试这只是个反馈内容测试一二三'
+      phone: ''
+      attachements: ''
+    expected:
+      code: 1001
+      message: '内容最多500字'
+  #上传五张图片
+  - request:
+      content: '这只是个反馈内容测试'
+      phone: ''
+      attachements: '8fb7f629-c953-4afa-9d31-9968b3346a721471313133661|ce0fb69a-01b3-4813-9abd-706b103e38d21471313133660|346f6c63-60ad-4afa-a3e0-91397ce857331471313133658|37e45ded-bea2-4593-9162-c9428f7b17011471313133647|a21b4714-ac74-4fcf-9f95-f1ec4da3399f1471313133659'
+    expected:
+      code: 1
+      message: '谢谢您的反馈'
+  #上传六张图片
+  - request:
+      content: '这只是个反馈内容测试'
+      phone: ''
+      attachements: 8fb7f629-c953-4afa-9d31-9968b3346a721471313133661|ce0fb69a-01b3-4813-9abd-706b103e38d21471313133660|346f6c63-60ad-4afa-a3e0-91397ce857331471313133658|37e45ded-bea2-4593-9162-c9428f7b17011471313133647|a21b4714-ac74-4fcf-9f95-f1ec4da3399f1471313133659|4f1a70f3-161b-435b-b887-ecc3832ec75f1471313234061'
+    expected:
+      code: 1
+      message: '谢谢您的反馈'
+
+            

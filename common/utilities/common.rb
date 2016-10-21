@@ -22,21 +22,21 @@ module Common
     def logger_error(message)
       puts "ERROR- #{message}"
       $result = "Failed"
-      current_url = ($driver!=nil && $driver.current_url.include?("http")) ? "#{$driver.current_url}\n" : nil
-      $logger.error message
-      $errormessage=$errormessage <<timestamp<<" -- #{current_url}#{message}\n"
+      current_url = ($driver!=nil && ($driver.current_url.include?("http")) rescue false) ? "#{$driver.current_url}\n" : nil
+      $logger.error "#{message}".gsub("\\n","\n")
+      $errormessage = "#{$errormessage}" <<timestamp<<" -- #{current_url}#{message}\n"
       raise message
       false
     end
 
     def logger_step(message)
       puts message
-      $logger.info message
+      $logger.info "#{message}".gsub("\\n","\n")
     end
 
     def logger_info(message)
       puts "INFO - #{message}"
-      $logger.info message
+      $logger.info "#{message}".gsub("\\n","\n")
     end
 
     def upcase_first_letter(string)

@@ -10,6 +10,9 @@ timeout: 1200
 actions: action_1
 
 api_path: /api/mobile/v1/settings/about_us
+user:
+  mobile: '18980709020'
+  password: '123456'
 unsign_test:
   - request:
     expected:

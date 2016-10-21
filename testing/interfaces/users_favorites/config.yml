@@ -1,0 +1,30 @@
+# encoding: UTF-8
+# implement interface test script users-favorites
+TargetService: 
+plan_name: 'Interfaces_users-favorites'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+#收藏列表
+api_path: /api/mobile/v1/users/favorites
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      page: '1'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request:
+      page: '1'
+    expected:
+      code: 1
+      message: ''
+            

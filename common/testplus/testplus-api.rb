@@ -6,7 +6,8 @@ require 'rest_client'
 include REXML
 #SCREEN_SHORT_FOLDER = Dir.exist?("c:/marquee/screen_shots") ? "c:/marquee/screen_shots" : "#{File.dirname(__FILE__)}/../../output/screenshots"
 SCREEN_SHORT_FOLDER = File.absolute_path("#{File.dirname(__FILE__)}/../../output/screenshots").gsub(File::SEPARATOR, File::ALT_SEPARATOR || File::SEPARATOR)
-LOG_FOLDER = File.absolute_path("#{File.dirname(__FILE__)}/../../output/test_results").gsub(File::SEPARATOR, File::ALT_SEPARATOR || File::SEPARATOR)
+#LOG_FOLDER = File.absolute_path("#{File.dirname(__FILE__)}/../../output/test_results").gsub(File::SEPARATOR, File::ALT_SEPARATOR || File::SEPARATOR)
+LOG_FOLDER = File.absolute_path("#{File.dirname(__FILE__)}/../../output/log").gsub(File::SEPARATOR, File::ALT_SEPARATOR || File::SEPARATOR)
 
 module TESTPLUS
   def self.post url_string, xml_string
@@ -19,7 +20,6 @@ module TESTPLUS
 
   def self.post_case_result(case_result)
     # just forward to webserver in order to calculate the results
-    #case_result["screen_shot"] = '20160824-15-28-17-804005000.png' if case_result["status"]=='failed'
     data = {
       :protocol => {
         :what => 'Case',
@@ -34,6 +34,7 @@ module TESTPLUS
         }
       }
     }
+    puts case_result.to_json
     Common.logger_info "update case result: #{data}"
     RestClient.post "#{$testplus_config["web_server"]}/status/update", data rescue false
     begin  
@@ -59,21 +60,22 @@ module TESTPLUS
         :data => {
           :script_name => script_result["script_name"],
           :state => script_status,
-          'service' => {
-            '' => script_result["versions"].split('|').map do |s|
+          'service' => script_result["versions"].split('|').map do |s|
               temp = s.split("#")
               result = { "name"=>temp[0],"version"=>temp[1] }
             end
-          }
         }
       }
     }
-
+    puts script_result.to_json
     Common.logger_info "update script status: #{data}"
     (RestClient.post "#{$testplus_config["web_server"]}/status/update", data) rescue false
-    (RestClient.post "#{$testplus_config["web_logserver"]}/logs", JSON.parse($logjson)) rescue false
+    return if $logfile.nil?
+    log_params = JSON.parse($logjson)
+    log_params["log"]["file_name"] = $logfile + ".txt"
+    (RestClient.post "#{$testplus_config["web_logserver"]}/logs", log_params) rescue false   
     begin
-      RestClient.post "#{$testplus_config["web_logserver"]}/upload", {"test_log" => File.new(File.join(LOG_FOLDER, $logfile),'rb')}
+      RestClient.post "#{$testplus_config["web_logserver"]}/upload", {"test_log" => File.new(File.join(LOG_FOLDER, log_params["log"]["file_name"]),'rb')}
     rescue => e
       Common.logger_error "post log file #{File.join(LOG_FOLDER, $logfile)} to web server failed: #{e}"
     end       

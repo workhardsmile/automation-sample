@@ -1,0 +1,40 @@
+# encoding: UTF-8
+# implement interface test script settings-share_info
+TargetService: 
+plan_name: 'Interfaces_settings-share_info'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/settings/share_info
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request: {}     
+    expected:
+      code: 1
+      message: ''
+      data: 
+        title: "物联网安全手机客户端"
+        content: "我在用物联网安全APP, 聚合物联网专业人士, 分享物联网安全知识, 推荐你试试."
+        thumbnail: "http://192.168.28.218/assets/logo_default.png"
+        url: "http://192.168.28.218"
+        qrcode: "http://192.168.28.218/assets/qrcode.png"
+signin_test: 
+  - request: {}
+    expected:
+      code: 1
+      message: ''
+      data: 
+        title: "物联网安全手机客户端"
+        content: "我在用物联网安全APP, 聚合物联网专业人士, 分享物联网安全知识, 推荐你试试."
+        thumbnail: "http://192.168.28.218/assets/logo_default.png"
+        url: "http://192.168.28.218"
+        qrcode: "http://192.168.28.218/assets/qrcode.png"
+
+            

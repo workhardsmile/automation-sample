@@ -1,0 +1,89 @@
+# encoding: UTF-8
+# implement interface test script admin-searches-articles
+TargetService: 
+plan_name: 'Interfaces_admin-searches-articles'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-14
+version: 1
+last_modified_dt: 2016-10-14
+timeout: 1200
+actions: action_1
+
+api_path: /api/admin/searches/articles
+user:
+  user_name: 'smart'
+  password: '123456'
+unsign_test:
+  - request:
+      keyword: ''
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      keyword: ''
+      page: '1'
+      per: '6'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      keyword: '安全'
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''  
+  - request:
+      keyword: '安全'
+      page: '2'
+      per: '5'
+    expected:
+      code: 1
+      message: '' 
+  - request:
+      keyword: '不存在文章的标题搜索'
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''
+signin_test:
+  - request:
+      keyword: ''
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      keyword: ''
+      page: '1'
+      per: '6'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      keyword: '安全'
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''  
+  - request:
+      keyword: '安全'
+      page: '2'
+      per: '5'
+    expected:
+      code: 1
+      message: '' 
+  - request:
+      keyword: '不存在文章的标题搜索'
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''
+            

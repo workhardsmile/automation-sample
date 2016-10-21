@@ -23,13 +23,23 @@ class ApiCallBase
     return  user_info, response.headers[:access_token]
   end
   
-  def self.url_query_string(hash={})
+  def self.get_admin_user_token(user_name="smart",password="123456")
+    host = SERVICE_API_URL[$env]["Host"]
+    data = {"user_name" => "#{user_name}","password" => "#{password}"}
+
+    response = RestClient.post "#{SERVICE_API_URL[$env]["Host"]}/api/admin/users/sign_in", data
+    user_info = JSON.parse(response) rescue response
+    return  user_info, response.headers[:access_token]
+  end
+  
+  def self.url_query_string(hash={},is_url=false)
     if hash.instance_of? String
       URI.encode hash
-    else
-      # uri = Addressable::URI.new
-      # uri.query_values = hash
-      # uri.query
+    elsif is_url
+      uri = Addressable::URI.new
+      uri.query_values = hash
+      uri.query
+    else      
       query_str = ""
       hash.reject{ |key,value| query_str="#{query_str}&#{key}=#{value}" }
       query_str[1,query_str.length-1]
@@ -46,9 +56,13 @@ class ApiCallBase
     @token = nil
   end
 
-  def set_user_token(mobile="15800000002",password="123456")
-    @mobile = mobile
-    @user,@token = ApiCallBase.get_user_token(mobile,password)
+  def set_user_token(user_id="15800000002",password="123456",is_admin=false)
+    @mobile = user_id
+    if is_admin
+      @user,@token = ApiCallBase.get_admin_user_token(user_id,password)
+    else      
+      @user,@token = ApiCallBase.get_user_token(user_id,password)
+    end    
     @headers =  @headers.merge({"Authorization" => "Token token=#{@token}"})
   end
    
@@ -106,7 +120,7 @@ class ApiCallBase
   # @method => get from request_api with header_parameters (header)
   # response string or nil
   def get_by_api(request_api,request_body={}, header_parameters={})
-    query_str = "?#{ApiCallBase.url_query_string(request_body)}" unless (request_body.nil? || request_body=={})
+    query_str = "?#{ApiCallBase.url_query_string(request_body,true)}" unless ("#{request_body}"=="" || request_body=={})
     @headers = @headers.merge({ "Sign" => get_md5_sign_str("#{__method__}".split("_")[0],request_api,request_body)})
     host = SERVICE_API_URL[$env]["Host"]
     request_url ="#{host}#{request_api}#{query_str}"
@@ -126,7 +140,7 @@ class ApiCallBase
   # @method => delete from request_api with header_parameters (header)
   # response string or nil
   def delete_by_api(request_api,request_body={}, header_parameters={})
-    query_str = "?#{ApiCallBase.url_query_string(request_body)}" unless (request_body.nil? || request_body=={})
+    query_str = "?#{ApiCallBase.url_query_string(request_body,true)}" unless ("#{request_body}"=="" || request_body=={})
     @headers = @headers.merge({ "Sign" => get_md5_sign_str("#{__method__}".split("_")[0],request_api,request_body)})
     host = SERVICE_API_URL[$env]["Host"]
     request_url ="#{host}#{request_api}#{query_str}"
@@ -134,10 +148,12 @@ class ApiCallBase
       Common.logger_info "header: #{@headers}"
       Common.logger_info "delete request by #{request_url}."
       Common.logger_info "request data -->> #{request_body}."
-      RestClient.delete request_url, @headers.merge(header_parameters)
+      result = RestClient.delete request_url, @headers.merge(header_parameters)
       Common.logger_info "delete by #{request_api} successfully!"
+      JSON.parse(result) rescue result
     rescue => e
       Common.logger_error "error in delete from url: -- #{request_url} \n #{e.message}"
+      result = nil
     end
   end
 

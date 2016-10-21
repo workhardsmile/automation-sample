@@ -3,6 +3,7 @@ def action_1
   
   it "IH485_sign-in" do
     $parameters["signin_test"].each do |test_data|
+      $step_array = $step_array << test_data
       user,token = ApiCallBase.get_user_token(test_data["request"]["mobile"],test_data["request"]["password"])
       Common.logger_info(user)
       expect(user["code"]).to eq(test_data["expected"]["code"])

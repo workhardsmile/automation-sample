@@ -1,0 +1,110 @@
+# encoding: UTF-8
+# implement op-center test script op_center_sign_in
+TargetService: 
+plan_name: 'OP-Center_登录'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-20
+version: 1
+last_modified_dt: 2016-10-20
+timeout: 1200
+actions: action_1
+
+success_test:
+  - request:
+      user_name: smart
+      password: 123456
+    expected:
+      message: ''
+fail_test:
+  - request:
+      user_name: smart
+      password: 1234567
+    expected:
+      message: "账号或密码错误"
+    #密码错误登录   
+  - request:
+      user_name: smarts
+      password: 123456
+    expected:
+      message: "账号或密码错误"
+    #手机号错误登录
+  - request:
+      user_name: 1898070902
+      password: 123456
+    expected:
+      message: "账号或密码错误"
+    #手机号密码均错误登录
+  - request:
+      user_name: '测试'
+      password: 123456
+    expected:
+      message: "账号或密码错误"
+    #手机号填写中文字符
+  - request:
+      user_name: test
+      password: 123456
+    expected:
+      message: "账号或密码错误"
+    #手机号填写英文字符
+  - request:
+      user_name: '#￥%'
+      password: 123456
+    expected:
+      message: "账号或密码错误"
+    #手机号填写特殊字符
+  - request:
+      user_name: '文海jkfd2388#￥%'
+      password: 123456
+    expected:
+      message: "账号或密码错误"
+    #手机号填写混合字符
+  - request:
+      user_name: 189807090201
+      password: 123456
+    expected:
+      message: "账号或密码错误"
+    #手机号超11位
+  - request:
+      user_name: smart
+      password: fddsd
+    expected:
+      message: "账号或密码错误"
+    #密码填写英文字符
+  - request:
+      user_name: smart
+      password: '测试'
+    expected:
+      message: "账号或密码错误"
+    #密码填写中文字符
+  - request:
+      user_name: smart
+      password: '测试dfj$'
+    expected:
+      message: "账号或密码错误"
+    #密码填写混合字符
+  - request:
+      user_name: smart
+      password: '%￥#$#'
+    expected:
+      message: "账号或密码错误"
+    #密码填写特殊字符
+  - request:
+      user_name: smart
+      password: "asdqwe123!@#qweasd123"
+    expected:
+      message: "账号或密码错误"
+    #密码填写超过18位
+  - request:
+      user_name: smart
+      password: ''
+    expected:
+      message: "请输入密码"
+    #密码填写为空
+  - request:
+      user_name: ''
+      password: 123456
+    expected:
+      message: "请输入用户名"
+    #手机号填写为空
+            

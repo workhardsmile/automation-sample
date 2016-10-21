@@ -1,0 +1,99 @@
+# encoding: UTF-8
+# implement interface test script admin-features-index
+TargetService: 
+plan_name: 'Interfaces_admin-features-index'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-14
+version: 1
+last_modified_dt: 2016-10-14
+timeout: 1200
+actions: action_1
+
+api_path: /api/admin/features/index
+user:
+  user_name: 'smart'
+  password: '123456'
+unsign_test:
+  - request: 
+      title: ''
+      status: -1
+      start_time: '2016-1-1'
+      end_time: '2016-12-31'
+      page: 1
+      per: 10
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request: 
+      title: ''
+      status: -1
+      start_time: '2016-1-1'
+      end_time: '2016-12-31'
+      page: 1
+      per: 10
+    expected:
+      code: 1
+      message: ''
+  - request: 
+      title: ''
+      status: 1
+      start_time: '2016-1-1'
+      end_time: '2016-12-31'
+      page: 1
+      per: 10
+    expected:
+      code: 1
+      message: ''
+  - request: 
+      title: ''
+      status: 2
+      start_time: '2016-1-1'
+      end_time: '2016-12-31'
+      page: 1
+      per: 10
+    expected:
+      code: 1
+      message: ''
+  - request: 
+      title: '专题'
+      status: 0
+      start_time: '2016-1-1'
+      end_time: '2016-12-31'
+      page: 1
+      per: 10
+    expected:
+      code: 1
+      message: ''
+  - request: 
+      title: '专题'
+      status: 2
+      start_time: '2017-1-1'
+      end_time: '2016-12-31'
+      page: 1
+      per: 10
+    expected:
+      code: 1
+      message: ''
+  - request: 
+      title: '专题'
+      status: 2
+      start_time: '2016中文'
+      end_time: '2016-12-31'
+      page: 1
+      per: 10
+    expected:
+      code: 1001
+      message: ''
+  - request: 
+      title: '专题'
+      status: 2
+      start_time: '2016-1-1'
+      end_time: '2016@#￥'
+      page: 1
+      per: 10
+    expected:
+      code: 1001
+      message: ''    
+            

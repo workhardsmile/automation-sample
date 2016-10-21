@@ -22,8 +22,8 @@ optparse = OptionParser.new do|opts|
   
   #define environment option
   options[:environment] = 'QA'
-  opts.on('-e', '--environment <string>', ["QA","REG", "PROD"],
-  'Name of the test environment (optinal)','ex - "QA","REG", "PROD"','Set to QA by default') do|environment|
+  opts.on('-e', '--environment <string>', ["QA","REG", "STAG", "PROD"],
+  'Name of the test environment (optinal)','ex - "QA","REG", "STAG", "PROD"','Set to QA by default') do|environment|
     options[:environment] = environment
   end
   
@@ -104,7 +104,7 @@ else
   ARGV.push '-fh'
   ARGV.push '-o'
   ARGV.push "#{log_path}/output/test_results/#{result_path}"
-  puts "You can find test result in: #{}/output/test_results/#{result_path}"
+  puts "You can find test result in: #{log_path}/output/test_results/#{result_path}"
 end
 
 folder_path = File.join(File.absolute_path(__FILE__).split("testing")[0],"output")
@@ -170,9 +170,12 @@ describe $plan_name  do
         "status"=>"end",
         "versions"=>service_info})
   }
-  before(:each) { $errormessage= "" }
+  before(:each) do
+    $step_array = [] 
+    $errormessage = ""
+  end
   after(:each) do |example| 
-    example.result!
+    example.result!('IH')
   end
   files = script_path.include?('testing') ? "/#{script_path}/*.rb" : "#{File.dirname(__FILE__)}/#{script_path}/*.rb"
   Dir[files].each {|file| require file}

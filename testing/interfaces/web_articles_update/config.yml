@@ -1,0 +1,81 @@
+# encoding: UTF-8
+# implement interface test script web-articles-update
+TargetService: 
+plan_name: 'Interfaces_web-articles-update'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/website/articles/update
+user:
+  mobile: '15800000002'
+  password: '123456'
+precondition:
+  api_path: /api/website/articles/create
+  request:
+    post_title: '测试发表文章2016101001'
+    post_content: '这里是文章内容'
+    topics: 'test;测试'
+unsign_test:
+  - request:
+      post_id: '68'
+      post_title: '测试发表文章'
+      post_content: '这里是文章内容'
+      topics: 'test'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test:
+  - request:
+      post_id: '68'
+      post_title: '测试发表文章'
+      post_content: '这里是文章内容'
+      topics: 'test'
+    expected:
+      code: 1001
+      message: '您没有权限进行此操作'
+  - request:
+      post_id: ''
+      post_title: '修改测试文章标题'
+      post_content: '修改测试文章内容'
+      topics: '修改话题'
+    expected:
+      code: 1
+      message: '修改成功'
+  - request:
+      post_id: ''
+      post_title: ''
+      post_content: '修改这里是文章内容'
+      topics: '修改话题'
+    expected:
+      code: 1001
+      message: '文章标题不能为空' 
+  - request:
+      post_id: ''
+      post_title: '修改测试文章标题'
+      post_content: ''
+      topics: '修改话题'
+    expected:
+      code: 1001
+      message: '文章内容不能为空'  
+  - request:
+      post_id: ''
+      post_title: '修改测试文章标题'
+      post_content: '修改这里是文章内容'
+      topics: ''
+    expected:
+      code: 1001
+      message: '话题不能为空'
+  - request:
+      post_id: ''
+      post_title: '修改测试文章标题'
+      post_content: '修改这里是文章内容'
+      topics: '修改话题1234567890'
+    expected:
+      code: 1001
+      message: '话题名称最多10字'
+                   

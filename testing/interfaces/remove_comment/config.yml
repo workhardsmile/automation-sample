@@ -1,0 +1,34 @@
+# encoding: UTF-8
+# implement interface test script articles-remove_comment
+TargetService: 
+plan_name: 'Interfaces_articles-remove_comment'
+owner: gang.wu@istuary.com
+status: Disabled
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/articles/remove_comment
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      comment_id: ''
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request:
+      comment_id: ''
+    expected:
+      code: 1001
+      message: '您没有权限进行此操作'
+  - request:
+      comment_id: '-1'
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+            

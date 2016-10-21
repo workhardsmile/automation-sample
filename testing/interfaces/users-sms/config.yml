@@ -1,0 +1,176 @@
+# encoding: UTF-8
+# implement interface test script users-sms
+TargetService: 
+plan_name: 'Interfaces_users-sms'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+#验证码：1注册2忘记密码3修改密码
+api_path: /api/mobile/v1/users/sms
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      type: '1'
+      mobile: ''
+    expected:
+      code: 1
+      message: ''
+  - request:
+      type: '1'
+      mobile: '1354010816'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      type: '1'
+      mobile: '18980709020'
+    expected:
+      code: 1001
+      message: '此手机号已注册'
+  - request:
+      type: '2'
+      mobile: '18980709020'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      type: '2'
+      mobile: '1354010816'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      type: '2'
+      mobile: ''
+    expected:
+      code: 1001
+      message: '此手机号未注册'
+  - request:
+      type: '2'
+      mobile: 'dadfdfa'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      type: '2'
+      mobile: '中文版'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      type: '2'
+      mobile: '@#￥%@'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      type: '2'
+      mobile: '135401081631'
+    expected:
+      code: 1001
+      message: '请输入正确的手机号'
+  - request:
+      type: '3'
+      mobile: ''
+    expected:
+      code: 1001
+      message: '请求类型错误'
+  - request:
+      type: '4'
+      mobile: ''
+    expected:
+      code: 1001
+      message: '请求类型错误'
+  - request:
+      type: '1'
+      mobile: ''
+      get_count: 10
+    expected:
+      code: 1001
+      message: '此号码验证码请求过多, 今日被禁止'
+  - request:
+      type: '1'
+      mobile: ''
+      error_count: 5
+    expected:
+      code: 1001
+      message: '验证码错误5次, 被禁止3小时'
+  - request:
+      type: '2'
+      mobile: '18980709020'
+      get_count: 10
+    expected:
+      code: 1001
+      message: '此号码验证码请求过多, 今日被禁止'
+  - request:
+      type: '2'
+      mobile: '18980709020'
+      error_count: 5
+    expected:
+      code: 1001
+      message: '验证码错误5次, 被禁止3小时'
+signin_test: 
+  - request:
+      type: '1'
+      mobile: '18980709020'
+    expected:
+      code: 1001
+      message: '请求类型错误'
+  - request:
+      type: '4'
+      mobile: '18980709020'
+    expected:
+      code: 1001
+      message: '请求类型错误'
+  - request:
+      type: '3'
+      mobile: '18980709020'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      type: '1'
+      mobile: '18980709020'
+    expected:
+      code: 1001
+      message: '请求类型错误'
+  - request:
+      type: '2'
+      mobile: '18980709020'
+    expected:
+      code: 1001
+      message: '请求类型错误'     
+  - request:
+      type: '3'
+      mobile: '18980709020'
+      get_count: 10
+    expected:
+      code: 1001
+      message: '此号码验证码请求过多, 今日被禁止'
+  - request:
+      type: '3'
+      mobile: '18980709020'
+      error_count: 5
+    expected:
+      code: 1001
+      message: '验证码错误5次, 被禁止3小时'
+  - request:
+      type: '3'
+      mobile: '13730731514'
+    expected:
+      code: 1001
+      message: '此手机号不匹配'
+  - request:
+      type: '3'
+      mobile: '13800138000'
+    expected:
+      code: 1001
+      message: '此手机号未注册'
+            

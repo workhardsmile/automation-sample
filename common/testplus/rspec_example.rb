@@ -103,22 +103,21 @@ class RSpec::Core::Example
     !passed?
   end
 
-  def result!
+  def result!(caseid_pefix="")
     if self.failed?
       $result ="Failed"
       message=@exception.to_s      
       exception_backtrace = @exception.backtrace.select{|trace_line| !trace_line.include?("gems/ruby")} #RSpec::Core::BacktraceFormatter.format_backtrace(@exception.backtrace, @metadata)
-      puts "#{exception_backtrace}#{@metadata}"
-      backtrace = exception_backtrace.map {|line| relative_path(line)}
+      backtrace = exception_backtrace.map {|line| relative_path(line)}     
       @snippet_extractor ||= SnippetExtractor.new
-      code_source =  @snippet_extractor.snippet(backtrace)
+      code_source =  @snippet_extractor.snippet(backtrace)      
       unless $driver.nil?
         filename = get_file_name_by_time
         $screenshot=$screenshot << "#{filename};"
         $driver.save_screenshot("#{SCREEN_SHORT_FOLDER}/#{filename}")
       end
       # $errormessage=$errormessage <<Common.timestamp<<" -- #{message}\n#{code_source}\n#{backtrace}"
-      $errormessage=$errormessage <<" -- #{message}\n#{code_source}\n#{format_backtrace(backtrace)}"
+      $errormessage=$errormessage <<"#{Time.now.strftime("[%Y-%m-%d %H:%M:%S]")} -- #{($step_array.last||{}).to_json}\n#{message}\n#{code_source}\n#{format_backtrace(backtrace)}"
     end
     temp = $errormessage
 
@@ -130,7 +129,7 @@ class RSpec::Core::Example
           "description"=>$errormessage.to_s,
           "script_name"=>$plan_name,
           "screen_shot"=>$screenshot,
-          "server_log"=>$errorlog.to_s})
+          "server_log"=>$errorlog.to_s}) if "#{test_case_id}".include?(caseid_pefix)
     end
     reset_status
     temp==""

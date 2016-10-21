@@ -1,0 +1,176 @@
+# encoding: UTF-8
+# implement interface test script users-social_sign_in
+TargetService: 
+plan_name: 'Interfaces_users-social_sign_in'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/mobile/v1/users/social_sign_in
+user:
+  mobile: '18980709020'
+  password: '123456'
+unsign_test:
+  - request:
+      user_name: 'Anry-S'
+      gender: 'm'
+      signature: '如若相爱，便携手到老；如若错过，便护他安好。'
+      avatar: 'http://tva4.sinaimg.cn/crop.0.0.180.180.50/72d382cfjw1e8qgp5bmzyj2050050aa8.jpg'
+      pronvince: ''
+      city: ''
+      location: ''
+      openid: '1926464207'
+      unionid: ''
+      access_token: '2.0022P4GCmoMF7Ca86babc6070HZNxP'
+      refresh_token: ''
+      expires_in: '148774'
+      type: '3'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      user_name: 'Anry'
+      gender: '男'
+      signature: ''
+      avatar: 'http://q.qlogo.cn/qqapp/1105485970/D3252790F54D00D061D58584EEF09DE8/100'
+      pronvince: '四川'
+      city: '成都'
+      location: ''
+      openid: 'D3252790F54D00D061D58584EEF09DE8'
+      unionid: ''
+      access_token: '78EBC97E8ACA7BD219BD88E48BEF1645'
+      refresh_token: ''
+      expires_in: '7776000'
+      type: '2'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      user_name: 'Harry'
+      gender: '男'
+      signature: ''
+      avatar: 'http://wx.qlogo.cn/mmopen/UbwPn8qHNu9DXibQ4YKuAjVmLujfmQkRYNVY4KzIa2xQDv1v5MKqL3OyJWsDsSWib88e0HibbHskMicmOxicGgPwFSg/0'
+      pronvince: '四川'
+      city: '成都'
+      location: ''
+      openid: 'oT5idwktiWHoblD9FsXY-QUevF4Y'
+      unionid: 'ooQFawMsMA_ArG7PTIVg9Lwet6D8'
+      access_token: 'w5k_kZrF6e8DLBiDKALpxSzYKmzCiPeuDi6CwWafgDiLc837qaufNa-9SwZGFT5nqPlDhGhn3VUBxrpHlSi4iHzRGuM3mGGgk8cRlI_wMIs'
+      refresh_token: ''
+      expires_in: '7200'
+      type: '1'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      user_name: 'Anry-S'
+      gender: 'm'
+      signature: '如若相爱，便携手到老；如若错过，便护他安好。'
+      avatar: 'http://tva4.sinaimg.cn/crop.0.0.180.180.50/72d382cfjw1e8qgp5bmzyj2050050aa8.jpg'
+      pronvince: ''
+      city: ''
+      location: ''
+      openid: '1926464207'
+      unionid: ''
+      access_token: '2.0022P4GCmoMF7Ca86babc6070HZNxP'
+      refresh_token: ''
+      expires_in: '148774'
+      type: ''
+    expected:
+      code: 1001
+      message: '类型错误'
+  - request:
+      user_name: ''
+      gender: 'm'
+      signature: '如若相爱，便携手到老；如若错过，便护他安好。'
+      avatar: 'http://tva4.sinaimg.cn/crop.0.0.180.180.50/72d382cfjw1e8qgp5bmzyj2050050aa8.jpg'
+      pronvince: ''
+      city: ''
+      location: ''
+      openid: '1926464207'
+      unionid: ''
+      access_token: '2.0022P4GCmoMF7Ca86babc6070HZNxP'
+      refresh_token: ''
+      expires_in: '148774'
+      type: '3'
+    expected:
+      code: 1001
+      message: '昵称不能为空'
+  - request:
+      user_name: '我只是试试这个昵称能不能超过十个字'
+      gender: 'm'
+      signature: '如若相爱，便携手到老；如若错过，便护他安好。'
+      avatar: 'http://tva4.sinaimg.cn/crop.0.0.180.180.50/72d382cfjw1e8qgp5bmzyj2050050aa8.jpg'
+      pronvince: ''
+      city: ''
+      location: ''
+      openid: ''
+      unionid: ''
+      access_token: '2.0022P4GCmoMF7Ca86babc6070HZNxP'
+      refresh_token: ''
+      expires_in: '148774'
+      type: '3'
+    expected:
+      code: 1001
+      message: 'ID不能为空'
+  - request:
+      user_name: '1'
+      gender: 'm'
+      signature: '如若相爱，便携手到老；如若错过，便护他安好。'
+      avatar: 'http://tva4.sinaimg.cn/crop.0.0.180.180.50/72d382cfjw1e8qgp5bmzyj2050050aa8.jpg'
+      pronvince: ''
+      city: ''
+      location: ''
+      openid: '1'
+      unionid: ''
+      access_token: '2.0022P4GCmoMF7Ca86babc6070HZNxP'
+      refresh_token: ''
+      expires_in: '148774'
+      type: '3'
+    expected:
+      code: 1
+      message: ''
+      user_name: '超过十字不重复'
+  - request:
+      user_name: '咫尺天涯'
+      gender: 'm'
+      signature: '如若相爱，便携手到老；如若错过，便护他安好。'
+      avatar: 'http://tva4.sinaimg.cn/crop.0.0.180.180.50/72d382cfjw1e8qgp5bmzyj2050050aa8.jpg'
+      pronvince: ''
+      city: ''
+      location: ''
+      openid: '1'
+      unionid: ''
+      access_token: '2.0022P4GCmoMF7Ca86babc6070HZNxP'
+      refresh_token: ''
+      expires_in: '148774'
+      type: '3'
+    expected:
+      code: 1
+      message: '' 
+      user_name: '咫尺天涯'
+  - request:
+      user_name: '我只是试试这个昵称能不能超过十个字'
+      gender: 'm'
+      signature: '如若相爱，便携手到老；如若错过，便护他安好。'
+      avatar: 'http://tva4.sinaimg.cn/crop.0.0.180.180.50/72d382cfjw1e8qgp5bmzyj2050050aa8.jpg'
+      pronvince: ''
+      city: ''
+      location: ''
+      openid: '1'
+      unionid: ''
+      access_token: '2.0022P4GCmoMF7Ca86babc6070HZNxP'
+      refresh_token: ''
+      expires_in: '148774'
+      type: '3'
+    expected:
+      code: 1
+      message: ''
+      #message: '此昵称已使用，请更换'
+      user_name: '用户'
+      
+       

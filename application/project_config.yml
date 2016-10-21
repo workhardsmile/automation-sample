@@ -5,4 +5,8 @@ ironhide:
   marquee_name: IronHide
   tl_project_name: IronHide
   id_prefix: IH
-
+- path: 'testing/op_center'
+  config_name: rspec_ironhide_op_center
+  marquee_name: IronHide
+  tl_project_name: IronHide
+  id_prefix: IH

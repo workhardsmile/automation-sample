@@ -1,0 +1,50 @@
+# encoding: UTF-8
+# implement interface test script web-users-articles
+TargetService: 
+plan_name: 'Interfaces_web-users-articles'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-08-22
+version: 1
+last_modified_dt: 2016-08-22
+timeout: 1200
+actions: action_1
+
+api_path: /api/website/users/articles
+user:
+  mobile: '15800000002'
+  password: '123456'
+unsign_test:
+  - request:
+      keyword: ''
+      sort: '0'
+      page: '1'
+      per: '10'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test:
+  - request:
+      keyword: ''
+      sort: '0'
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''
+  - request:
+      keyword: ''
+      sort: '1'
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''  
+  - request:
+      keyword: ''
+      sort: '2'
+      page: '1'
+      per: '10'
+    expected:
+      code: 1
+      message: ''       

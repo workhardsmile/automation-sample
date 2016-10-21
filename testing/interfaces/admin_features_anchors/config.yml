@@ -1,0 +1,39 @@
+# encoding: UTF-8
+# implement interface test script admin-features-anchors
+TargetService: 
+plan_name: 'Interfaces_admin-features-anchors'
+owner: gang.wu@istuary.com
+status: completed
+created_dt: 2016-10-14
+version: 1
+last_modified_dt: 2016-10-14
+timeout: 1200
+actions: action_1
+
+api_path: /api/admin/features/anchors
+user:
+  user_name: 'smart'
+  password: '123456'
+unsign_test:
+  - request: 
+      feature_id: '1'
+    expected:
+      code: 401
+      message: '请重新登录'
+signin_test: 
+  - request: 
+      feature_id: '0'
+    expected:
+      code: 1
+      message: ''
+  - request: 
+      feature_id: '-1'
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+  - request: 
+      feature_id: 
+    expected:
+      code: 1001
+      message: '资源不存在或者已经删除'
+                
