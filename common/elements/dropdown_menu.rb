@@ -19,7 +19,7 @@ class DropdownMenu < ElementBase
       unless @@element.attribute("class").include? "open"
         load_options
         # @@element.find_element(:xpath, "./button[@data-toggle='dropdown']").click
-        $driver.execute_script("$(arguments[0]).click();",  @@element.find_element(:xpath, "./button[@data-toggle='dropdown']"))
+        $driver.execute_script("$(arguments[0]).click();",  @@element.find_element(:xpath, "./button[contains(@class,'dropdown-toggle')]"))
       end
     rescue Exception => e
       Common.logger_error "Execute - open dropdown menu of #{self.class} - failed. get error #{e}"
@@ -46,9 +46,9 @@ class DropdownMenu < ElementBase
     if enabled? and "#{@@element.find_element(:xpath, ".//button").attribute("disabled")}" != "true"      
       obj = @@element.find_element(:xpath, ".//ul[contains(@class,'dropdown-menu')]//a[.='#{text}']") rescue nil
       obj = @@element.find_element(:xpath, ".//ul[contains(@class,'dropdown-menu')]//a[contains(.,'#{text}')]") if obj == nil
-      $driver.execute_script("arguments[0].scrollIntoView(false);", obj) rescue false
-      # obj.click
-      $driver.execute_script("arguments[0].click();",obj)
+      # $driver.execute_script("arguments[0].scrollIntoView(false);", obj) rescue false
+      obj.click
+      $driver.execute_script("arguments[0].click();",obj) rescue false
       Common.logger_step "Execute - select item in #{self.class} by text. - success. select item [#{text}]"
     else
       Common.logger_error "Execute - select item in #{self.class} by text - failed. the element is disalbled or can't find element by #{@@type} and #{@@value}"

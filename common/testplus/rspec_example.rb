@@ -117,11 +117,20 @@ class RSpec::Core::Example
         $driver.save_screenshot("#{SCREEN_SHORT_FOLDER}/#{filename}")
       end
       # $errormessage=$errormessage <<Common.timestamp<<" -- #{message}\n#{code_source}\n#{backtrace}"
-      $errormessage=$errormessage <<"#{Time.now.strftime("[%Y-%m-%d %H:%M:%S]")} -- #{($step_array.last||{}).to_json}\n#{message}\n#{code_source}\n#{format_backtrace(backtrace)}"
+      message = "#{($step_array.last||{}).to_json}\n#{message}\n#{code_source}\n#{format_backtrace(backtrace)}"
+      $errormessage=$errormessage <<"#{Time.now.strftime("[%Y-%m-%d %H:%M:%S]")} -- #{message}"
+      Common.logger_info("#"*30 + "[ERROR MESSAGE]" + "#"*30)
+      Common.logger_info(message)
+    
     end
     temp = $errormessage
 
     @metadata[:description].split('_').first.split('##').each do |test_case_id|
+      if self.failed?
+        Common.logger_info("#"*30 + "[#{test_case_id} FAILED]" + "#"*30)
+      else
+        Common.logger_info("#"*30 + "[#{test_case_id} PASSED]" + "#"*30)
+      end
       #TESTPLUS::update_case_result($round_id,$plan_name,test_case_id,$result,$errormessage,$screenshot,$errorlog)
       TESTPLUS.post_case_result({"round_id"=>$round_id,
           "case_id"=>test_case_id,

@@ -34,8 +34,8 @@ module TESTPLUS
         }
       }
     }
-    puts case_result.to_json
-    Common.logger_info "update case result: #{data}"
+    #puts case_result.to_json
+    #Common.logger_info "Post case result to TEST-PLUS..."
     RestClient.post "#{$testplus_config["web_server"]}/status/update", data rescue false
     begin  
       case_result["screen_shot"].split(";").each do |screen_file|
@@ -67,7 +67,7 @@ module TESTPLUS
         }
       }
     }
-    puts script_result.to_json
+    #puts script_result.to_json
     Common.logger_info "update script status: #{data}"
     (RestClient.post "#{$testplus_config["web_server"]}/status/update", data) rescue false
     return if $logfile.nil?
@@ -162,17 +162,17 @@ module TESTPLUS
     if $round_id != "DEBUG"
       case environment.upcase
       when "INT"
-        env = "LV-INT"
+        env = "INT"
       when "QA"
-        env = "LV-QA"
+        env = "QA"
       when "REG"
-        env = "LV-REG"
+        env = "REG"
       when "STG"
-        env = "LV-STAGE"
+        env = "STG"
       when "PROD"
-        env = "LV-PROD"
+        env = "PROD"
       when "PINT"
-        env = "LV-PINT"
+        env = "PINT"
       else
       Common.logger_info "failed to get service info, #{environment} is not supported"
       return
